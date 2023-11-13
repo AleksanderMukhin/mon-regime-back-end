@@ -1,7 +1,7 @@
 const app = require('./app');
 
-// podkluchenie k base dannuh mongoDB posle Oleksander nyzhno vstavit' porol' "150487-mO" proekta, megdy ? i / ne zabut' vstavit' nazvanie proekta "mon-regime"
-const DB_HOST = "mongodb+srv://Oleksander:150487-mO@cluster0.hwmgdyi.mongodb.net/mon-regime?retryWrites=true&w=majority"
+const { DB_HOST } = require('./config')
+
 const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
