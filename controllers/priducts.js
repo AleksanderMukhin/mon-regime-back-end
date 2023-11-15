@@ -1,10 +1,10 @@
-const products = require("../models/products");
+const Product = require("../models/product");
 
 const { HttpError, ctrlWrapper } = require("../helpers");
 
 // function s decoratorom
 const getAll = async (req, res) => {
-  const result = await products.getAll();
+  const result = await Product.find();
   res.json(result);
 }
 
@@ -12,7 +12,7 @@ const getAll = async (req, res) => {
 const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await products.getById(id);
+    const result = await Product.findOne({ _id: id });
     if (!result) {
       throw HttpError(404, "Not founded")
     }
@@ -22,36 +22,36 @@ const getById = async (req, res, next) => {
   }
 }
 
-const addProduct = async (req, res) => {
-  const result = await products.addProduct(req.body);
-  res.status(201).json(result);
-}
+// const addProduct = async (req, res) => {
+//   const result = await products.addProduct(req.body);
+//   res.status(201).json(result);
+// }
 
-const deleteById = async (req, res) => {
-  const { id } = req.params;
-  const result = await products.deleteById(id);
-  if (!result) {
-    throw HttpError(404, "Not founded")
-  }
-  res.json({
-    message: "Delete success"
-  })
-}
+// const deleteById = async (req, res) => {
+//   const { id } = req.params;
+//   const result = await products.deleteById(id);
+//   if (!result) {
+//     throw HttpError(404, "Not founded")
+//   }
+//   res.json({
+//     message: "Delete success"
+//   })
+// }
 
-const updateById = async (req, res) => {
-  // berem iz params id
-  const { id } = req.params;
-  const result = await products.updateById(id, req.body);
-  if (!result) {
-    throw HttpError(404, "Not founded")
-  }
-  res.json(result)
-}
+// const updateById = async (req, res) => {
+//   // berem iz params id
+//   const { id } = req.params;
+//   const result = await products.updateById(id, req.body);
+//   if (!result) {
+//     throw HttpError(404, "Not founded")
+//   }
+//   res.json(result)
+// }
 
 module.exports = {
   getAll: ctrlWrapper(getAll),
   getById: ctrlWrapper(getById),
-  addProduct: ctrlWrapper(addProduct),
-  deleteById: ctrlWrapper(deleteById),
-  updateById: ctrlWrapper(updateById),
+  // addProduct: ctrlWrapper(addProduct),
+  // deleteById: ctrlWrapper(deleteById),
+  // updateById: ctrlWrapper(updateById),
 }

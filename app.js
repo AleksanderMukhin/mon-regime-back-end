@@ -1,13 +1,14 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
+const dotenv = require("dotenv")
 
 
 // const moment = require('moment')
 
 const productsRouter = require('./routes/api/products')
-const exercisesRouter = require('./routes/api/exercises')
 
+dotenv.config()
 
 const app = express()
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -19,7 +20,6 @@ app.use(express.json())
 
 app.use("/products", productsRouter)
 
-app.use("/exercises", exercisesRouter)
 
 app.use((req, res) => {
   res.status(404).json({
