@@ -30,7 +30,7 @@ const addProduct = async (req, res) => {
 
 const deleteById = async (req, res) => {
   const { id } = req.params;
-  const result = await products.findByIdAndRemove(id);
+  const result = await Product.findByIdAndRemove(id);
   if (!result) {
     throw HttpError(404, "Not founded")
   }
