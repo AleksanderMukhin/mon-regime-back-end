@@ -42,14 +42,37 @@ const login = async (req, res) => {
     id: user._id,
   }
 
-  const token = jwt.sign(payload, process.env.SICRET_KEY, { expiresIn: "23h" })
-
+  const token = jwt.sign(payload, process.env.SICRET_KEY, { expiresIn: "23h" });
+  //  записываю token в объект user
+  await User.findByIdAndUpdate(user._id, { token })
   res.json({
     token,
+  })
+}
+
+const getCurrent = async (req, res) => {
+  // dannue user beretsja iz authenticate
+  const { email, name } = req.user;
+
+  res.json({
+    email,
+    name
+  })
+};
+
+const logout = async (req, res) => {
+  // dannue user beretsja iz authenticate
+  const { _id } = req.user;
+  await User.findByIdAndUpdate(_id, { token: "" });
+
+  res.json({
+    message: "Logout success"
   })
 }
 
 module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
+  getCurrent: ctrlWrapper(getCurrent),
+  logout: ctrlWrapper(logout)
 };

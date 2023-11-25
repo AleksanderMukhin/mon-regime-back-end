@@ -4,7 +4,7 @@ const schemas = require("../../schemas/products")
 
 const router = express.Router();
 
-const { getAll, getById, addProduct, deleteById, updateById } = require("../../controllers/priducts")
+const { getAll, getById, addProduct, deleteById, updateById } = require("../../controllers/products")
 
 router.get("/", authenticate, getAll)
 
