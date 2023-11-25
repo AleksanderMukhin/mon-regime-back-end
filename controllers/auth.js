@@ -15,11 +15,16 @@ const register = async (req, res) => {
   // pered sohraneniem heshyu parol
   const hashPassword = await bcrypt.hash(password, 10);
 
-  const newUser = await User.create({ ...req.body, password: hashPassword })
+  const newUser = await User.create({ ...req.body, password: hashPassword });
+
+  const token = jwt.sign(payload, process.env.SICRET_KEY, { expiresIn: "23h" });
+  //  записываю token в объект user
+  await User.findByIdAndUpdate(user._id, { token })
 
   res.status(201).json({
     email: newUser.email,
     name: newUser.name,
+    token: newUser.token,
   })
 }
 
