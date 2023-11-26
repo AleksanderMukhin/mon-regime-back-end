@@ -1,4 +1,6 @@
 const app = require('./app');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const { DB_HOST, PORT } = process.env;
 
